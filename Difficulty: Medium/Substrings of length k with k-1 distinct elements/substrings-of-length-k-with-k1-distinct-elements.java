@@ -2,23 +2,31 @@ class Solution {
     public int substrCount(String s, int k) {
         // code here
         int n = s.length();
-        int count = 0;
+        int distinctCount = 0,ans = 0;
+        int[] hash = new int[26];
+        int left = 0,right = 0;
         
-        for(int i = 0;(i + k) <= n; i++){
-            
-            String str = s.substring(i,i + k);
-            
-            Set<Character> set = new HashSet<>();
-            
-            for(char ch : str.toCharArray()){
-                set.add(ch);
+        while(right < n){
+            int addIndex = s.charAt(right) - 'a';
+            hash[addIndex]++;
+            if(hash[addIndex] == 1){
+                distinctCount++;
             }
             
-            if(set.size() == k - 1){
-                count++;
+            while((right - left + 1) > k){
+                int removeIdx = s.charAt(left) - 'a';
+                hash[removeIdx]--;
+                if(hash[removeIdx] == 0){
+                    distinctCount--;
+                }
+                left++;
             }
             
+            if((right - left + 1) == k && distinctCount == k - 1){
+                ans++;
+            }
+            right++;
         }
-        return count;
+        return ans;
     }
 }
