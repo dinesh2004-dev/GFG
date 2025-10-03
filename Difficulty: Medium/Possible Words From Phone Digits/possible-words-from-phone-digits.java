@@ -1,4 +1,5 @@
 class Solution {
+    
     public String getString(int n){
         switch(n){
             case 1:
@@ -24,29 +25,31 @@ class Solution {
         }
         
     }
-    public void solve(int ind,String s,int[] arr,ArrayList<String> res){
+    
+    public void solve(int[] arr,ArrayList<String> res,int ind,String str){
         
         if(ind == arr.length){
-            res.add(s);
+            
+            res.add(str);
             return;
         }
         
+        String s = getString(arr[ind]);
         
-        String str = getString(arr[ind]);
-        if(str.equals("")){
-             solve(ind + 1,s,arr,res);
+        if(s.equals("")){
+            solve(arr,res,ind + 1,str);
         }
-        
-        for(int i = 0; i < str.length(); i++){
+        for(int i = 0; i < s.length(); i++){
             
-            solve(ind + 1,s + str.charAt(i),arr,res);
+            solve(arr,res,ind + 1,str + s.charAt(i));
         }
     }
     public ArrayList<String> possibleWords(int[] arr) {
         // code here
+        
         ArrayList<String> res = new ArrayList<>();
         
-        solve(0,"",arr,res);
+        solve(arr,res,0,"");
         
         return res;
     }
