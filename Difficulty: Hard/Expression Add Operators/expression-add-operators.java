@@ -14,7 +14,7 @@ class Solution {
         
         for(int i = ind; i < s.length(); i++){
             
-            if(i != ind && s.charAt(ind) == '0'){
+            if(i > ind && s.charAt(ind) == '0'){
                 
                 break;
             }
