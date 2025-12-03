@@ -14,7 +14,7 @@ class Solution {
                 return mid;
             }
             
-            if(arr[mid] >= arr[low]){
+            if(arr[low] <= arr[mid]){
                 
                 if(key >= arr[low] && key <= arr[mid]){
                     
@@ -26,6 +26,7 @@ class Solution {
                 }
             }
             else{
+                
                 if(key >= arr[mid] && key <= arr[high]){
                     
                     low = mid + 1;
