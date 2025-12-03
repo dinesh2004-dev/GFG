@@ -15,41 +15,32 @@ class Solution {
         // code here
         Node dummy = new Node(-1);
         
-        Node curr1 = head1,curr2 = head2,currDum = dummy;
+        Node tail = dummy;
+        
+        Node curr1 = head1,curr2 = head2;
         
         while(curr1 != null && curr2 != null){
             
             if(curr1.data < curr2.data){
                 
-                Node newNode = new Node(curr1.data);
-                currDum.next = newNode;
+                tail.next = curr1;
                 curr1 = curr1.next;
             }
             else{
                 
-                Node newNode = new Node(curr2.data);
-                currDum.next = newNode;
+                tail.next = curr2;
                 curr2 = curr2.next;
             }
             
-            currDum = currDum.next;
+            tail = tail.next;
         }
         
-        while(curr1 != null){
+        if(curr1 != null){
             
-            Node newNode = new Node(curr1.data);
-            currDum.next = newNode;
-            currDum = currDum.next;
-            
-            curr1 = curr1.next;
+            tail.next = curr1;
         }
-        while(curr2 != null){
-            
-            Node newNode = new Node(curr2.data);
-            currDum.next = newNode;
-            currDum = currDum.next;
-            
-            curr2 = curr2.next;
+        else{
+            tail.next = curr2;
         }
         
         return dummy.next;
