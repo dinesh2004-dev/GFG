@@ -13,23 +13,24 @@ class Node {
 class Solution {
     ArrayList<Integer> zigZagTraversal(Node root) {
         // code here
-        ArrayList<Integer> res = new ArrayList<>();
         
         Queue<Node> q = new LinkedList<>();
         
         q.add(root);
         
-        boolean leftToRight = false;
+        ArrayList<Integer> res = new ArrayList<>();
+        
+        boolean reverse = false;
         
         while(!q.isEmpty()){
             
+            List<Integer> temp = new ArrayList<>();
             int size = q.size();
-            
-            ArrayList<Integer> temp = new ArrayList<>();
             
             for(int i = 0; i < size; i++){
                 
                 Node node = q.poll();
+                
                 temp.add(node.data);
                 
                 if(node.left != null){
@@ -40,22 +41,19 @@ class Solution {
                     
                     q.add(node.right);
                 }
-                
             }
             
-            Collections.reverse(temp);
-            
-            if(!leftToRight){
-                Collections.reverse(temp);
+            if(reverse){
                 
+                Collections.reverse(temp);
             }
             
             for(int ele : temp){
                 
                 res.add(ele);
             }
-            leftToRight = !leftToRight;
             
+            reverse = !reverse;
         }
         
         return res;
