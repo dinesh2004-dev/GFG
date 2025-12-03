@@ -13,7 +13,6 @@ class Solution {
     int getKthFromLast(Node head, int k) {
         // Your code here
         Node curr = head;
-        
         int len = 0;
         
         while(curr != null){
@@ -22,19 +21,27 @@ class Solution {
             len++;
         }
         
-        len = len - k;
-        
-        if(len < 0){
+        if(k > len){
             
             return -1;
         }
         
+        len = len -  k;
+        
         curr = head;
+        
+        
         
         for(int i = 0; i < len; i++){
             
             curr = curr.next;
         }
+        
+        // Node temp = curr.next;
+        
+        // curr.next = temp.next;
+        
+        // temp.next = null;
         
         return curr.data;
     }
