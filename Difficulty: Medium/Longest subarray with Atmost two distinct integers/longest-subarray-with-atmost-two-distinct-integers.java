@@ -2,46 +2,32 @@ class Solution {
     public int totalElements(int[] arr) {
         // code here
         int n = arr.length;
-        if (n <= 2) return n;
         
-        int left = 0;
+        Map<Integer,Integer> mpp = new HashMap<>();
+        
+        int l = 0,r = 0;
+        
         int maxLen = 0;
-        int first = -1, firstCount = 0;
-        int second = -1, secondCount = 0;
         
-        for (int right = 0; right < n; right++) {
-            if (arr[right] == first) {
-                firstCount++;
-            } else if (arr[right] == second) {
-                secondCount++;
-            } else if (first == -1) {
-                first = arr[right];
-                firstCount = 1;
-            } else if (second == -1) {
-                second = arr[right];
-                secondCount = 1;
-            } else {
-                // Third distinct element found - need to shrink window
-                while (firstCount > 0 && secondCount > 0) {
-                    if (arr[left] == first) {
-                        firstCount--;
-                    } else if (arr[left] == second) {
-                        secondCount--;
-                    }
-                    left++;
+        while(r < n){
+            
+            mpp.put(arr[r],mpp.getOrDefault(arr[r],0)+1);
+            
+            while(l < r && mpp.size() > 2){
+                
+                int rem = arr[l];
+                mpp.put(rem,mpp.get(rem) - 1);
+                
+                if(mpp.get(rem) == 0){
+                    
+                    mpp.remove(rem);
                 }
                 
-                // Replace the eliminated element with the new one
-                if (firstCount == 0) {
-                    first = arr[right];
-                    firstCount = 1;
-                } else {
-                    second = arr[right];
-                    secondCount = 1;
-                }
+                l++;
             }
             
-            maxLen = Math.max(maxLen, right - left + 1);
+            maxLen = Math.max(maxLen,r - l + 1);
+            r++;
         }
         
         return maxLen;
